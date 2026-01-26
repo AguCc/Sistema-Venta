@@ -1,6 +1,6 @@
 <Solution>
-  <Project Path="../Dato/Dato.csproj" />
-  <Project Path="../Entidad/Entidad.csproj" />
-  <Project Path="../Negocios/Negocios.csproj" />
-  <Project Path="Sistema Venta.csproj" />
+  <Project Path="../CpDatos/CpDatos.csproj" Id="7431c5d8-d441-4f9e-bdfc-d427b270079f" />
+  <Project Path="../CpEntidad/CpEntidad.csproj" Id="b85f18a9-ce85-4908-b5f4-a363029c489b" />
+  <Project Path="../CpNegocio/CpNegocio.csproj" Id="120b9301-6889-4ae7-ad49-fc26b4775ade" />
+  <Project Path="Sistema Venta.csproj" Id="2857f9cf-6779-4517-adf3-8c2fbc567117" />
 </Solution>
