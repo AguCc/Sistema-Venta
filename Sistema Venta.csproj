@@ -56,6 +56,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataUsuario.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataUsuario.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\FrmCategoria.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,6 +138,9 @@
     <EmbeddedResource Include="Formularios\FrmCategoria.resx">
       <DependentUpon>FrmCategoria.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmUsuarios.resx">
+      <DependentUpon>frmUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Inicio.resx">
       <DependentUpon>Inicio.cs</DependentUpon>
     </EmbeddedResource>
@@ -148,6 +156,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="DataUsuario.xsc">
+      <DependentUpon>DataUsuario.xsd</DependentUpon>
+    </None>
+    <None Include="DataUsuario.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataUsuario.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataUsuario.xss">
+      <DependentUpon>DataUsuario.xsd</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -20,15 +20,29 @@ namespace Sistema_Venta
         private static Usuario usuarioActual;
         private static IconMenuItem MenuActivo = null;
         private static Form FormularioActivo = null;
-        public Inicio(Usuario usuario)
+        public Inicio(Usuario usuario =null)
         {
+            if(usuario== null)
+                usuarioActual = new Usuario() { NombreCompleto = "Empleado",IdUsuario=1};
+            else { usuarioActual = usuario; }
+            
+
+
             InitializeComponent();
-            usuarioActual = usuario;
+
         }
 
         private void Inicio_Load(object sender, EventArgs e)
         {
             List<Permiso> ListaPermisos = new Cn_Permiso().listar(usuarioActual.IdUsuario);
+            foreach (IconMenuItem iconmenu in menu.Items)
+            {
+                bool encontrado = ListaPermisos.Any(p => p.NombreMenu == iconmenu.Name);
+                if (encontrado==false)
+                {
+                    iconmenu.Visible = false;
+                }
+            }
 
             lblUsuario.Text = usuarioActual.NombreCompleto;
         }
@@ -38,7 +52,7 @@ namespace Sistema_Venta
             {
                 MenuActivo.BackColor = Color.White;
             }
-            menu.BackColor = Color.Silver;
+            menu.BackColor = Color.LightSteelBlue;
             MenuActivo = menu;
 
             if (FormularioActivo!=null)
@@ -49,43 +63,44 @@ namespace Sistema_Venta
             formulario.TopLevel = false;
             formulario.FormBorderStyle = FormBorderStyle.None;
             formulario.Dock = DockStyle.Fill;
-            formulario.BackColor = Color.SteelBlue;
+            formulario.BackColor = Color.AliceBlue;
             Contenedor.Controls.Add(formulario);
             formulario.Show();
         }
         private void MenuUsuario_Click(object sender, EventArgs e)
         {
+            
             AbrirFormulario((IconMenuItem)sender,new frmUsuarios());
         }
 
         private void subMenuCategoria_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(MenuMantenedor, new FrmCategoria());
+            AbrirFormulario(menumantenedor, new FrmCategoria());
         }
 
         private void subMenuProducto_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(MenuMantenedor, new FrmProducto());
+            AbrirFormulario(menumantenedor, new FrmProducto());
         }
 
         private void subMenuRegistrar_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(MenuMantenedor, new frmVenta());
+            AbrirFormulario(menumantenedor, new frmVenta());
         }
 
         private void SubMenuVerDetalleDeVenta_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(MenuVenta, new FrmDetalleVenta());
+            AbrirFormulario(menuventa, new FrmDetalleVenta());
         }
 
         private void SubMenuResgistrarCompra_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(MenuCompras, new frmCompra());
+            AbrirFormulario(menucompras, new frmCompra());
         }
 
         private void subMenuDetalleCompra_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(MenuCompras, new frmDetalleCompra());
+            AbrirFormulario(menucompras, new frmDetalleCompra());
         }
 
         private void MenuClientes_Click(object sender, EventArgs e)
