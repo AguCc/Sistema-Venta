@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cp_Entidad;
 using FontAwesome.Sharp;
+using CpNegocio;
 
 namespace Sistema_Venta
 {
@@ -27,8 +28,9 @@ namespace Sistema_Venta
 
         private void Inicio_Load(object sender, EventArgs e)
         {
-            lblUsuario.Text = usuarioActual.NombreCompleto.ToString();
-            LblRol.Text = usuarioActual.Documento.ToString() ;
+            List<Permiso> ListaPermisos = new Cn_Permiso().listar(usuarioActual.IdUsuario);
+
+            lblUsuario.Text = usuarioActual.NombreCompleto;
         }
         private void AbrirFormulario(IconMenuItem menu,Form formulario)
         {
@@ -54,6 +56,51 @@ namespace Sistema_Venta
         private void MenuUsuario_Click(object sender, EventArgs e)
         {
             AbrirFormulario((IconMenuItem)sender,new frmUsuarios());
+        }
+
+        private void subMenuCategoria_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(MenuMantenedor, new FrmCategoria());
+        }
+
+        private void subMenuProducto_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(MenuMantenedor, new FrmProducto());
+        }
+
+        private void subMenuRegistrar_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(MenuMantenedor, new frmVenta());
+        }
+
+        private void SubMenuVerDetalleDeVenta_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(MenuVenta, new FrmDetalleVenta());
+        }
+
+        private void SubMenuResgistrarCompra_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(MenuCompras, new frmCompra());
+        }
+
+        private void subMenuDetalleCompra_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(MenuCompras, new frmDetalleCompra());
+        }
+
+        private void MenuClientes_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario((IconMenuItem)sender, new frmClientes());
+        }
+
+        private void MenuProveedores_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario((IconMenuItem)sender, new Proveedor());
+        }
+
+        private void MenuReportes_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario((IconMenuItem)sender, new Reportes());
         }
     }
 }
