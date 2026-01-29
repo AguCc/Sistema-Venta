@@ -29,8 +29,22 @@ namespace Sistema_Venta
         private void Inicio_Load(object sender, EventArgs e)
         {
             List<Permiso> ListaPermisos = new Cn_Permiso().listar(usuarioActual.IdUsuario);
+            //puedo crear una lista llamando e inicializando el contructor,
+            //
+
+            foreach (IconMenuItem iconmenu in menu.Items)
+            {
+                bool encontrado = ListaPermisos.Any(n => n.NombreMenu == iconmenu.Name);
+                if (encontrado == false)
+                {
+                    iconmenu.Visible = false;
+                }
+            }
 
             lblUsuario.Text = usuarioActual.NombreCompleto;
+
+
+            
         }
         private void AbrirFormulario(IconMenuItem menu,Form formulario)
         {
@@ -43,8 +57,9 @@ namespace Sistema_Venta
 
             if (FormularioActivo!=null)
             {
-                formulario.Close();
+                FormularioActivo.Close();
             }
+
             FormularioActivo = formulario;
             formulario.TopLevel = false;
             formulario.FormBorderStyle = FormBorderStyle.None;
@@ -60,32 +75,33 @@ namespace Sistema_Venta
 
         private void subMenuCategoria_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(MenuMantenedor, new FrmCategoria());
+            AbrirFormulario(menumantenedor, new FrmCategoria());
+                
         }
 
         private void subMenuProducto_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(MenuMantenedor, new FrmProducto());
+            AbrirFormulario(menumantenedor, new FrmProducto());
         }
 
         private void subMenuRegistrar_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(MenuMantenedor, new frmVenta());
+            AbrirFormulario(menuventas, new frmVenta());
         }
 
         private void SubMenuVerDetalleDeVenta_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(MenuVenta, new FrmDetalleVenta());
+            AbrirFormulario(menuventas, new FrmDetalleVenta());
         }
 
         private void SubMenuResgistrarCompra_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(MenuCompras, new frmCompra());
+            AbrirFormulario(menucompras, new frmCompra());
         }
 
         private void subMenuDetalleCompra_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(MenuCompras, new frmDetalleCompra());
+            AbrirFormulario(menucompras, new frmDetalleCompra());
         }
 
         private void MenuClientes_Click(object sender, EventArgs e)
@@ -101,6 +117,11 @@ namespace Sistema_Venta
         private void MenuReportes_Click(object sender, EventArgs e)
         {
             AbrirFormulario((IconMenuItem)sender, new Reportes());
+        }
+
+        private void Contenedor_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
