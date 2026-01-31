@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sistema_Venta.Utilidades;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Sistema_Venta.Utilidades;
 
 namespace Sistema_Venta
 {
@@ -54,8 +56,11 @@ namespace Sistema_Venta
 
         private void frmUsuarios_Load(object sender, EventArgs e)
         {
+            OpcionCombo opcionCombo;
             // TODO: esta línea de código carga datos en la tabla 'dataUsuario.USUARIO' Puede moverla o quitarla según sea necesario.
             this.uSUARIOTableAdapter.Fill(this.dataUsuario.USUARIO);
+            cbestado.Items.Add(new OpcionCombo() { Valor = 1, Texto = "Activo" });
+            cbestado.Items.Add(new OpcionCombo() { Valor = 0, Texto = "Activo" });
 
         }
     }

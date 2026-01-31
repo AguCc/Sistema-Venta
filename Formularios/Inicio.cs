@@ -22,11 +22,11 @@ namespace Sistema_Venta
         private static Form FormularioActivo = null;
         public Inicio(Usuario usuario =null)
         {
-            if(usuario== null)
-                usuarioActual = new Usuario() { NombreCompleto = "Empleado",IdUsuario=1};
-            else { usuarioActual = usuario; }
-            
+            //if(usuario== null)
+            //    usuarioActual = new Usuario() { NombreCompleto = "Empleado",IdUsuario=1};
+            //else { usuarioActual = usuario; }
 
+            usuarioActual = usuario;
 
             InitializeComponent();
 
