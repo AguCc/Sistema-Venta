@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Sistema_Venta.Utilidades;
 using Entidad;
 using CpNegocio;
+using System.Windows.Controls;
 
 namespace Sistema_Venta
 {
@@ -58,26 +58,56 @@ namespace Sistema_Venta
 
         private void frmUsuarios_Load(object sender, EventArgs e)
         {
-            OpcionCombo opcionCombo;
-            // TODO: esta línea de código carga datos en la tabla 'dataUsuario.USUARIO' Puede moverla o quitarla según sea necesario.
-            this.uSUARIOTableAdapter.Fill(this.dataUsuario.USUARIO);
-            cbestado.Items.Add(new OpcionCombo() { Valor = 1, Texto = "Activo" });
-            cbestado.Items.Add(new OpcionCombo() { Valor = 0, Texto = "No Activo" });
+            cbestado.Items.Add(new OpcionCombo() { Texto = "Activo", Valor = 1 });
+            cbestado.Items.Add(new OpcionCombo() { Texto = "No Activo", Valor = 0 });
             cbestado.DisplayMember = "Texto";
             cbestado.ValueMember = "Valor";
             cbestado.SelectedIndex = 0;
 
-            List<Rol> listaRol = new Cn_Rol().listar();
-            foreach (Rol item in listaRol)
+            List<Rol> listRol = new Cn_Rol().listar();
+
+            foreach (Rol item in listRol)
             {
                 cbrol.Items.Add(new OpcionCombo() { Valor = item.IdRol, Texto = item.Descripcion });
-                cbestado.DisplayMember = "Texto";
-                cbestado.ValueMember = "Valor";
-                cbestado.SelectedIndex = 0;
+            }
+            cbrol.DisplayMember = "Texto";
+            cbrol.ValueMember = "Valor";
+            cbrol.SelectedIndex = 0;
+
+            foreach (DataGridViewColumn columna in dvgdata.Columns)
+            {
+                if (columna.Visible == true )
+                {
+                    cbbusqueda.Items.Add(new OpcionCombo() { Valor = 1, Texto = "Activo" });
+                }
             }
 
 
 
         }
+
+        private void btnguarda_Click(object sender, EventArgs e)
+        {
+            dvgdata.Rows.Add(new object[] {"",txtid.Text,txtdocumento.Text,txtnombrecompleto.Text,txtcorreo.Text,txtcontraseña.Text,
+            ((OpcionCombo)cbrol.SelectedItem).Valor.ToString(),
+            ((OpcionCombo)cbrol.SelectedItem).Texto.ToString(),
+            ((OpcionCombo)cbestado.SelectedItem).Valor.ToString(),
+            ((OpcionCombo)cbestado.SelectedItem).Texto.ToString(),
+            });
+            Limpiar();
+
+        }
+        private void Limpiar()
+        {
+            txtid.Text = "";
+            txtdocumento.Text = "";
+            txtnombrecompleto.Text = "";
+            txtcorreo.Text = "";
+            txtcontraseña.Text = "";
+            confirmarContraseña.Text = "";
+            cbrol.SelectedIndex = 0;
+            cbestado.SelectedIndex = 0;
+        }
+
     }
 }
