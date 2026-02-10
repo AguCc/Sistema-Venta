@@ -58,6 +58,8 @@ namespace Sistema_Venta
 
         private void frmUsuarios_Load(object sender, EventArgs e)
         {
+            //Agregado nuevo
+            InsertKeyMode.Insert.ToString();
             cbestado.Items.Add(new OpcionCombo() { Valor = 1, Texto = "Activo" });
             cbestado.Items.Add(new OpcionCombo() { Valor = 0, Texto = "No Activo"});
             cbestado.DisplayMember = "Texto";
