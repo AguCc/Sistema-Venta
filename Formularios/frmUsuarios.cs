@@ -58,8 +58,8 @@ namespace Sistema_Venta
 
         private void frmUsuarios_Load(object sender, EventArgs e)
         {
-            cbestado.Items.Add(new OpcionCombo() { Texto = "Activo", Valor = 1 });
-            cbestado.Items.Add(new OpcionCombo() { Texto = "No Activo", Valor = 0 });
+            cbestado.Items.Add(new OpcionCombo() { Valor = 1, Texto = "Activo" });
+            cbestado.Items.Add(new OpcionCombo() { Valor = 0, Texto = "No Activo"});
             cbestado.DisplayMember = "Texto";
             cbestado.ValueMember = "Valor";
             cbestado.SelectedIndex = 0;
@@ -76,13 +76,27 @@ namespace Sistema_Venta
 
             foreach (DataGridViewColumn columna in dvgdata.Columns)
             {
-                if (columna.Visible == true )
+                if (columna.Visible == true && columna.Name !="btnseleccionar" )
                 {
-                    cbbusqueda.Items.Add(new OpcionCombo() { Valor = 1, Texto = "Activo" });
+                    cbbusqueda.Items.Add(new OpcionCombo() { Valor=columna.Name, Texto= columna.HeaderText });
                 }
             }
+            cbbusqueda.DisplayMember = "Texto";
+            cbbusqueda.ValueMember = "Valor";
+            cbbusqueda.SelectedIndex = 0;
 
+            //Mostrar todos los usuarios
+            List<Usuario> listaUsuari = new Cn_Usuario().listar();
 
+            foreach (Usuario item in listaUsuari)
+            {
+                dvgdata.Rows.Add(new object[] {"",item.IdUsuario,item.Documento,item.NombreCompleto,item.Correo,item.Clave,
+            item.oRol.IdRol,
+            item.oRol.Descripcion,
+            item.Estado ==true ?1 :0,
+            item.Estado== true ? " Activo": "No Activo",
+            });
+            }
 
         }
 
