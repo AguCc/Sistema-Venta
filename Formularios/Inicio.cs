@@ -46,24 +46,28 @@ namespace Sistema_Venta
 
             lblUsuario.Text = usuarioActual.NombreCompleto;
         }
-        private void AbrirFormulario(IconMenuItem menu,Form formulario)
+        private void AbrirFormulario(IconMenuItem menu, Form formulario)
         {
-            if (MenuActivo!= null)
+            if (MenuActivo != null)
             {
                 MenuActivo.BackColor = Color.White;
             }
+
             menu.BackColor = Color.LightSteelBlue;
             MenuActivo = menu;
 
-            if (FormularioActivo!=null)
+            if (FormularioActivo != null)
             {
-                formulario.Close();
+                FormularioActivo.Close(); // ← acá está la corrección
             }
+
             FormularioActivo = formulario;
             formulario.TopLevel = false;
             formulario.FormBorderStyle = FormBorderStyle.None;
             formulario.Dock = DockStyle.Fill;
             formulario.BackColor = Color.AliceBlue;
+
+            Contenedor.Controls.Clear(); // recomendable para evitar duplicados
             Contenedor.Controls.Add(formulario);
             formulario.Show();
         }

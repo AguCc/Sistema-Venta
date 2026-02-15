@@ -109,14 +109,66 @@ namespace Sistema_Venta
 
         private void btnguarda_Click(object sender, EventArgs e)
         {//Agregado nuevo usuario al datagridview
+            string mensaje = string.Empty;
+            Usuario objusuario = new Usuario()
+            {
+                IdUsuario = Convert.ToInt32(txtid.Text),
+                Documento = txtdocumento.Text,
+                NombreCompleto = txtnombrecompleto.Text,
+                Correo = txtcorreo.Text,
+                Clave = txtcontraseña.Text,
+                oRol = new Rol() { IdRol = Convert.ToInt32(((OpcionCombo)cbrol.SelectedItem).Valor) },
+                Estado = Convert.ToInt32(((OpcionCombo)cbestado.SelectedItem).Valor) == 1 ? true : false
+            };
 
-            dvgdata.Rows.Add(new object[] {"",txtid.Text,txtdocumento.Text,txtnombrecompleto.Text,txtcorreo.Text,txtcontraseña.Text,
-            ((OpcionCombo)cbrol.SelectedItem).Valor.ToString(),
-            ((OpcionCombo)cbrol.SelectedItem).Texto.ToString(),
-            ((OpcionCombo)cbestado.SelectedItem).Valor.ToString(),
-            ((OpcionCombo)cbestado.SelectedItem).Texto.ToString(),
-            });
-            Limpiar();
+            if (objusuario.IdUsuario ==0)
+            {
+                int idusuariogenerado = new Cn_Usuario().Registrar(objusuario, out mensaje);
+
+                if (idusuariogenerado != 0)
+                {
+                    dvgdata.Rows.Add(new object[] {"",txtid.Text,txtdocumento.Text,txtnombrecompleto.Text,txtcorreo.Text,txtcontraseña.Text,
+                         ((OpcionCombo)cbrol.SelectedItem).Valor.ToString(),
+                         ((OpcionCombo)cbrol.SelectedItem).Texto.ToString(),
+                          ((OpcionCombo)cbestado.SelectedItem).Valor.ToString(),
+                         ((OpcionCombo)cbestado.SelectedItem).Texto.ToString()
+                    });
+                    Limpiar();
+
+                }
+                else
+                {
+                    MessageBox.Show(mensaje);
+                }
+            }
+            else
+            {
+                               bool resultado = new Cn_Usuario().Editar(objusuario, out mensaje);
+                if (resultado)
+                {//Agregado la funcionalidad de editar usuario al datagridview
+
+                    DataGridViewRow row = dvgdata.Rows[Convert.ToInt32(txtindice.Text)];
+                    row.Cells["Id"].Value = txtid.Text;
+                    row.Cells["Documento"].Value = txtdocumento.Text;
+                    row.Cells["NombreCompleto"].Value = txtnombrecompleto.Text;
+                    row.Cells["Correo"].Value = txtcorreo.Text;
+                    row.Cells["Clave"].Value = txtcontraseña.Text;
+                    row.Cells["IdRol"].Value = ((OpcionCombo)cbrol.SelectedItem).Valor.ToString();
+                    row.Cells["Rol"].Value = ((OpcionCombo)cbrol.SelectedItem).Texto.ToString();
+                    row.Cells["EstadoValor"].Value = ((OpcionCombo)cbestado.SelectedItem).Valor.ToString();
+                    row.Cells["Estado"].Value = ((OpcionCombo)cbestado.SelectedItem).Texto.ToString();
+                    Limpiar();
+                }
+                else
+                {
+                    MessageBox.Show(mensaje);
+                }
+            }
+
+
+
+            
+
 
         }
         private void Limpiar()
