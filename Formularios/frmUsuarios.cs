@@ -91,9 +91,9 @@ namespace Sistema_Venta
             cbbusqueda.SelectedIndex = 0;
 
 
-            List<Usuario> listaUsuari = new Cn_Usuario().listar();
+            List<Categoria> listaUsuari = new Cn_Usuario().listar();
 
-            foreach (Usuario item in listaUsuari)
+            foreach (Categoria item in listaUsuari)
             {//Agregado los usuarios al datagridview
 
                 dvgdata.Rows.Add(new object[] {"",item.IdUsuario,item.Documento,item.NombreCompleto,item.Correo,item.Clave,
@@ -110,7 +110,7 @@ namespace Sistema_Venta
         private void btnguarda_Click(object sender, EventArgs e)
         {//Agregado nuevo usuario al datagridview
             string mensaje = string.Empty;
-            Usuario objusuario = new Usuario()
+            Categoria objusuario = new Categoria()
             {
                 IdUsuario = Convert.ToInt32(txtid.Text),
                 Documento = txtdocumento.Text,
@@ -182,6 +182,7 @@ namespace Sistema_Venta
             confirmarContraseña.Text = "";
             cbrol.SelectedIndex = 0;
             cbestado.SelectedIndex = 0;
+            txtdocumento.Select();
         }
 
         private void dvgdata_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
@@ -251,6 +252,68 @@ namespace Sistema_Venta
             }
             
             
+        }
+
+        private void btneliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Convert.ToInt32(txtid.Text) != 0)
+                {
+                    if (MessageBox.Show("¿Desea eliminar el usuario", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        string mensaje = string.Empty;
+                        Categoria objusuario = new Categoria()
+                        {
+                            IdUsuario = Convert.ToInt32(txtid.Text)
+                        };
+                        bool respuesta = new Cn_Usuario().Eliminar(objusuario, out mensaje);
+                        if (respuesta)
+                        {
+                            dvgdata.Rows.RemoveAt(Convert.ToInt32(txtindice.Text));
+                        }
+                        else
+                        {
+                            MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                
+            }
+        }
+
+        private void btnbuscar_Click(object sender, EventArgs e)
+        {
+            string columnaFiltro = ((OpcionCombo)cbbusqueda.SelectedItem).Valor.ToString();
+            string textoBusqueda = txtbusqueda.Text.Trim().ToUpper();
+
+            foreach (DataGridViewRow row in dvgdata.Rows)
+            {
+                if (row.Cells[columnaFiltro].Value != null)
+                {
+                    string valorCelda = row.Cells[columnaFiltro].Value.ToString().ToUpper();
+
+                    row.Visible = valorCelda.Contains(textoBusqueda);
+
+                }
+            }
+        }
+
+        private void btnlimpiar_Click(object sender, EventArgs e)
+        {
+            txtbusqueda.Text = "";  
+            foreach (DataGridViewRow row in dvgdata.Rows)
+            {
+                row.Visible = true;
+            }
+        }
+
+        private void btneditar_Click(object sender, EventArgs e)
+        {
+            Limpiar();
         }
     }
 }

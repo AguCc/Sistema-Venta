@@ -84,7 +84,7 @@
             this.txtDocumento.Multiline = true;
             this.txtDocumento.Name = "txtDocumento";
             this.txtDocumento.Size = new System.Drawing.Size(312, 37);
-            this.txtDocumento.TabIndex = 3;
+            this.txtDocumento.TabIndex = 1;
             // 
             // label3
             // 
@@ -118,7 +118,7 @@
             this.btnIngresar.Location = new System.Drawing.Point(302, 156);
             this.btnIngresar.Name = "btnIngresar";
             this.btnIngresar.Size = new System.Drawing.Size(127, 41);
-            this.btnIngresar.TabIndex = 7;
+            this.btnIngresar.TabIndex = 3;
             this.btnIngresar.Text = "Ingresar";
             this.btnIngresar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnIngresar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -155,7 +155,7 @@
             this.TxtContraseña.Name = "TxtContraseña";
             this.TxtContraseña.PasswordChar = '*';
             this.TxtContraseña.Size = new System.Drawing.Size(312, 37);
-            this.TxtContraseña.TabIndex = 9;
+            this.TxtContraseña.TabIndex = 2;
             // 
             // Logins
             // 

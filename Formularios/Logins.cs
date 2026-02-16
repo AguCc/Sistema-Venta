@@ -27,8 +27,8 @@ namespace Sistema_Venta
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            List<Usuario> TEST = new Cn_Usuario().listar();
-            Usuario ousuario = new Cn_Usuario().listar().Where(u => u.Documento == txtDocumento.Text && u.Clave == TxtContraseña.Text).FirstOrDefault();
+            List<Entidad.Categoria> TEST = new Cn_Usuario().listar();
+            Entidad.Categoria ousuario = new Cn_Usuario().listar().Where(u => u.Documento == txtDocumento.Text && u.Clave == TxtContraseña.Text).FirstOrDefault();
 
             if (ousuario!= null)
             {

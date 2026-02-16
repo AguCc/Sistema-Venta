@@ -17,10 +17,10 @@ namespace Sistema_Venta
 
     public partial class Inicio : Form
     {
-        private static Usuario usuarioActual;
+        private static Entidad.Categoria usuarioActual;
         private static IconMenuItem MenuActivo = null;
         private static Form FormularioActivo = null;
-        public Inicio(Usuario usuario =null)
+        public Inicio(Entidad.Categoria usuario =null)
         {
             //if(usuario== null)
             //    usuarioActual = new Usuario() { NombreCompleto = "Empleado",IdUsuario=1};
